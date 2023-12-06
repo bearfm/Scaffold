@@ -62,7 +62,7 @@ public class ScaffoldWorld {
 
         WorldCreator creator = worldCreator(Optional.of(config));
         World world = creator.createWorld();
-        world.setSpawnLocation(0, 3, 0);
+        world.setSpawnLocation(0, -63, 0);
         world.setAutoSave(true);
         world.save();
 
@@ -74,8 +74,8 @@ public class ScaffoldWorld {
         world.setGameRule(GameRule.LOG_ADMIN_COMMANDS, false);
         world.setGameRule(GameRule.RANDOM_TICK_SPEED, 0);
 
-        Vector min = new Vector(-1, 0, -1);
-        Vector max = new Vector(1, 0, 1);
+        Vector min = new Vector(-1, -64, -1);
+        Vector max = new Vector(1, -64, 1);
 
         for (int x = min.getBlockX(); x <= max.getBlockX(); x++)
             for (int y = min.getBlockY(); y <= max.getBlockY(); y++)

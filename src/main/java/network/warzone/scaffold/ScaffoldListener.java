@@ -2,6 +2,9 @@ package network.warzone.scaffold;
 
 import com.google.common.base.Splitter;
 import com.sk89q.minecraft.util.commands.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -69,8 +72,9 @@ public class ScaffoldListener implements Listener {
         Location playerLoc = player.getLocation();
 
         if (playerLoc.getY() < -70) {
-            player.teleport(new Location(playerLoc.getWorld(), 0, 0, 0, playerLoc.getYaw(), playerLoc.getPitch()));
-            player.setVelocity(new Vector(0, 1, 0));
+            player.teleport(player.getWorld().getSpawnLocation());
+            player.setVelocity(new Vector(0, 0.1, 0));
+            player.sendMessage(Component.text("Can't have you doing that.", NamedTextColor.RED));
         }
     }
 }
