@@ -3,7 +3,7 @@
 # Scaffold
 My fork of Scaffold ("World management plugin for build servers.").
 
-This project is a fork of Warzone's Scaffold, which itself is a fork of Avicus Network's [Build Plugin](https://github.com/Avicus/Scaffold).
+This project is a fork of Warzone's [Scaffold](https://github.com/Warzone/Scaffold), which itself is a fork of Avicus Network's [Scaffold](https://github.com/Avicus/Scaffold).
 
 ## Wack Features
 
