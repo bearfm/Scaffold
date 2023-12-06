@@ -5,6 +5,10 @@ My fork of Scaffold ("World management plugin for build servers.").
 
 This project is a fork of Warzone's Scaffold, which itself is a fork of Avicus Network's [Build Plugin](https://github.com/Avicus/Scaffold).
 
+## Wack Features
+
+Falling below y -70 will teleport you to y 0 and give you upwards momentum. It's in ScaffoldListener.java if you feel like removing it.
+
 ## Server Setup
 
 1. Start with the latest stable [Paper (PaperSpigot)](https://papermc.io/ci/job/Paper/) build.
