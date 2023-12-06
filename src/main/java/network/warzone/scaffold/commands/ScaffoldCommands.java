@@ -21,10 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ScaffoldCommands {
@@ -61,7 +58,7 @@ public class ScaffoldCommands {
     }
 
     @CommandPermissions("scaffold.command.archive")
-    @Command(aliases = "archive", desc = "Archive and delete a world (use -k to keep).", min = 1, max = 1, usage = "<world>", flags = "k")
+    @Command(aliases = "archive", desc = "Archive a world. (use -d to delete).", min = 1, max = 1, usage = "<world>", flags = "d")
     public static void archive(CommandContext cmd, CommandSender sender) {
         if (!sender.hasPermission("scaffold.command.archive")) {
             sender.sendMessage(ChatColor.RED + "You do not have permission.");
@@ -74,15 +71,17 @@ public class ScaffoldCommands {
             return;
         }
 
-        boolean delete = !cmd.hasFlag('k');
+        boolean delete = cmd.hasFlag('d');
 
         if (wrapper.isOpen() && delete) {
-            sender.sendMessage(ChatColor.RED + "World must be closed to archive and delete.");
+            sender.sendMessage(ChatColor.RED + "World must be closed to archive and delete. (You ran this command with -d to delete).");
             return;
         }
 
-        World world = wrapper.getWorld().get();
-        world.save();
+        if (!delete) {
+            World world = wrapper.getWorld().get();
+            world.save();
+        }
 
         File folder = wrapper.getFolder();
         File archives = new File("scaffold-archives");
@@ -162,6 +161,36 @@ public class ScaffoldCommands {
             player.setGameMode(GameMode.CREATIVE);
             player.setAllowFlight(true);
             player.setFlying(true);
+        }
+    }
+
+    @CommandPermissions("scaffold.command.delete")
+    @Command(aliases = "delete", desc = "Delete a world.", min = 1, max = 1, usage = "<world>")
+    public static void delete(CommandContext cmd, CommandSender sender) {
+        ScaffoldWorld wrapper = ScaffoldWorld.ofSearch(cmd.getString(0));
+
+        if (!sender.hasPermission("scaffold.command.close")) {
+            sender.sendMessage(ChatColor.RED + "You do not have permission.");
+            return;
+        }
+
+        if (!wrapper.isCreated()) {
+            sender.sendMessage(ChatColor.RED + "World has not been created.");
+            return;
+        }
+
+        if (wrapper.isOpen()) {
+            sender.sendMessage(ChatColor.RED + "World needs to be closed.");
+            return;
+        }
+
+        File folder = wrapper.getFolder();
+        try {
+            FileUtils.deleteDirectory(folder);
+            sender.sendMessage(ChatColor.GOLD + "You have deleted \"" + wrapper.getName() + "\".");
+        } catch (Exception e) {
+            e.printStackTrace();
+            sender.sendMessage(ChatColor.RED + "An error has occurred. See the server logs.");
         }
     }
 

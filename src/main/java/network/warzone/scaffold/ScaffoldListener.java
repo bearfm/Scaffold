@@ -2,9 +2,16 @@ package network.warzone.scaffold;
 
 import com.google.common.base.Splitter;
 import com.sk89q.minecraft.util.commands.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.util.Vector;
 
 import java.text.NumberFormat;
 import java.util.*;
@@ -54,6 +61,16 @@ public class ScaffoldListener implements Listener {
             } catch (Exception e) {
                 // Ignore, not a number
             }
+        }
+    }
+    @EventHandler
+    public void playerMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        Location playerLoc = player.getLocation();
+
+        if (playerLoc.getY() < -70) {
+            player.teleport(new Location(playerLoc.getWorld(), 0, 0, 0, playerLoc.getYaw(), playerLoc.getPitch()));
+            player.setVelocity(new Vector(0, 1, 0));
         }
     }
 }
