@@ -7,7 +7,7 @@ This project is a fork of Warzone's [Scaffold](https://github.com/Warzone/Scaffo
 
 ## Server Setup
 
-1. Start with the latest stable [Paper (PaperSpigot)](https://papermc.io/ci/job/Paper/) build.
+1. Start with the latest stable [Paper (PaperSpigot)](https://papermc.io/downloads/paper) build.
 
 2. Compile the latest version of Scaffold with Maven (mvn package).
 
