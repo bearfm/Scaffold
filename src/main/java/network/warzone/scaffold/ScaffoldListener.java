@@ -68,6 +68,7 @@ public class ScaffoldListener implements Listener {
     }
     @EventHandler
     public void playerMove(PlayerMoveEvent event) {
+        if (!Scaffold.get().getConfig().getBoolean("antivoid")) return;
         Player player = event.getPlayer();
         Location playerLoc = player.getLocation();
 

@@ -48,6 +48,9 @@ public final class Scaffold extends JavaPlugin implements TabCompleter {
                     wrapper.getWorld().get().setFullTime(locked.get(wrapper));
             }
         }, 1, 20);
+
+        saveDefaultConfig();
+
     }
 
     @Override
